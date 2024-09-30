@@ -1,3 +1,18 @@
+function setDefaultValue(input, defaultValue) {
+    if (input.value === '') {
+        input.value = defaultValue; // Set to default value if blank
+    }
+}
+
+function checkMinMax(input, min, max) {
+    let value = parseInt(input.value, 10);
+    if (value < min) {
+        input.value = min; // Set to min if below
+    } else if (value > max) {
+        input.value = max; // Set to max if above
+    }
+}
+
 function importFormMPG() {
     document.getElementById('inputForm').innerHTML = `
         <form id="passwordForm">
@@ -20,39 +35,51 @@ function importFormMPG() {
                     <h4>Settings</h4>
                     <div>
                         <label for="minLength">Minimum Word Length:</label>
-                        <input type="number" id="minLength" min="3" max="9" value="4" required>
+                        <input type="number" id="minLength" min="3" max="9" value="4" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 4)" oninput="checkMinMax(this, 3, 9)">
                     </div>
                     <div>
                         <label for="maxLength">Maximum Word Length:</label>
-                        <input type="number" id="maxLength" min="1" max="9" value="6" required>
+                        <input type="number" id="maxLength" min="1" max="9" value="6" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 6)" oninput="checkMinMax(this, 1, 9)">
                     </div>
                     <div>
                         <label for="numWords">Number of Words:</label>
-                        <input type="number" id="numWords" min="1" max="20" value="3" required>
+                        <input type="number" id="numWords" min="1" max="20" value="3" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 3)" oninput="checkMinMax(this, 1, 20)">
                     </div>
                     <div>
                         <label for="numPasswords">Number of Passwords:</label>
-                        <input type="number" id="numPasswords" min="1" max="99" value="10" required>
+                        <input type="number" id="numPasswords" min="1" max="99" value="10" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 10)" oninput="checkMinMax(this, 1, 99)">
                     </div>
                 </div>
                 <div id="myWordsSection" style="display: none;">
                     <h4>My Words</h4>
                     <div>
                         <label for="firstWord">1st Word:</label>
-                        <input type="text" id="firstWord" min="3" max="20" value="">
+                        <input type="text" id="firstWord" min="3" max="20" value="" pattern="[A-Za-z]+" title="Please enter letters only." required>
                     </div>
                     <div>
                         <label for="secondWord">2nd Word:</label>
-                        <input type="text" id="secondWord" min="3" max="20" value="">
+                        <input type="text" id="secondWord" min="3" max="20" value="" pattern="[A-Za-z]+" title="Please enter letters only." required>
                     </div>
                     <div>
                         <label for="thirdWord">3rd Word:</label>
-                        <input type="text" id="thirdWord" min="3" max="20" value="">
+                        <input type="text" id="thirdWord" min="3" max="20" value="" pattern="[A-Za-z]+" title="Please enter letters only." required>
                     </div>
                 </div>
             </div>
         </form>
     `;
+
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^A-Za-z]/g, ''); // Remove non-letter characters
+        });
+    });
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Remove non-number characters
+        });
+    });
 
     document.getElementById('toggleSettings').addEventListener('click', function() {
         toggleSection('settingsSection', 'toggleSettings');
@@ -68,34 +95,6 @@ function importFormMPG() {
         </br></br>Second scource to check password strength <a href=https://www.security.org/how-secure-is-my-password/>how-secure-is-my-password</a></p>`;
 
     document.getElementById('output').innerHTML = msg;
-
-    const inputminlength = document.getElementById('minLength');
-    inputminlength.addEventListener('input', function() {
-        if (this.value && !isNaN(this.value)) {
-            this.value = Math.max(3, Math.min(9, parseInt(this.value)));
-        }
-    });
-
-    const inputmaxlength = document.getElementById('maxLength');
-    inputmaxlength.addEventListener('input', function() {
-        if (this.value && !isNaN(this.value)) {
-            this.value = Math.max(3, Math.min(9, parseInt(this.value)));
-        }
-    });
-
-    const inputnumword = document.getElementById('numWords');
-    inputnumword.addEventListener('input', function() {
-        if (this.value && !isNaN(this.value)) {
-            this.value = Math.max(1, Math.min(20, parseInt(this.value)));
-        }
-    });
-
-    const inputnumpass = document.getElementById('numPasswords');
-    inputnumpass.addEventListener('input', function() {
-        if (this.value && !isNaN(this.value)) {
-            this.value = Math.max(1, Math.min(99, parseInt(this.value)));
-        }
-    });
 
     const inputWord1 = document.getElementById('firstWord');
     inputWord1.addEventListener('input', function() {
@@ -159,16 +158,22 @@ function importFormRPG() {
                     <h4>Settings</h4>
                     <div>
                         <label for="numLetters">Password Length:</label>
-                        <input type="number" id="numLetters" min="6" max="99" value="12" required>
+                        <input type="number" id="numLetters" min="6" max="99" value="12" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 12) "oninput="checkMinMax(this, 6, 99)">
                     </div>
                     <div>
                         <label for="numPasswordsRandom">Number of Passwords:</label>
-                        <input type="number" id="numPasswordsRandom" min="1" max="99" value="10" required>
+                        <input type="number" id="numPasswordsRandom" min="1" max="99" value="10" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 10) "oninput="checkMinMax(this, 1, 99)">
                     </div>
                 </div>
             </div>
         </form>
     `;
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Remove non-number characters
+        });
+    });
 
     document.getElementById('toggleSettingsRandom').addEventListener('click', function() {
         toggleSectionRandom('settingsSectionRandom', 'toggleSettingsRandom');
@@ -191,6 +196,66 @@ function importFormRPG() {
 
     const inputnumpassrand = document.getElementById('numPasswordsRandom');
     inputnumpassrand.addEventListener('inputFormRandom', function() {
+        if (this.value && !isNaN(this.value)) {
+            this.value = Math.max(1, Math.min(99, parseInt(this.value)));
+        }
+    });
+}
+
+function importFormPG() {
+    document.getElementById('inputFormRandomPin').innerHTML = `
+        <form id="passwordForm">
+            <div id="formHeader">
+                <button type="button" onclick="generateRandomPin()">Generate Pins</button>
+                <div id="optionsContainer">
+                    <h4>Options</h4>
+                    <div id="options">  
+                        <span id="toggleSettingsRandomPin" class="option-toggle">
+                            <i class="bi bi-gear" style="cursor: pointer;"></i> Settings
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="optionalRandomPin" style="display: none;">
+                <div id="settingsSectionRandomPin" style="display: none;">
+                    <h4>Settings</h4>
+                    <div>
+                        <label for="numNumbers">Pin Length:</label>
+                        <input type="number" id="numNumbers" min="4" max="8" value="4" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 4) "oninput="checkMinMax(this, 4, 8)">
+                    </div>
+                    <div>
+                        <label for="numPasswordsRandomPin">Number of Pins:</label>
+                        <input type="number" id="numPasswordsRandomPin" min="1" max="99" value="10" pattern="\d+" title="Please enter numbers only." required onblur="setDefaultValue(this, 10) "oninput="checkMinMax(this, 1, 99)">
+                    </div>
+                </div>
+            </div>
+        </form>
+    `;
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, ''); // Remove non-number characters
+        });
+    });
+
+    document.getElementById('toggleSettingsRandomPin').addEventListener('click', function() {
+        toggleSectionRandomPin('settingsSectionRandomPin', 'toggleSettingsRandomPin');
+    });
+
+    msg = `<p>Click Generate Pins or Choose an option.</p></br>`;
+
+    document.getElementById('outputRandomPin').innerHTML = msg;
+
+
+    const inputnumnumbers = document.getElementById('numNumbers');
+    inputnumnumbers.addEventListener('inputFormRandomPin', function() {
+        if (this.value && !isNaN(this.value)) {
+            this.value = Math.max(6, Math.min(99, parseInt(this.value)));
+        }
+    });
+
+    const inputnumpinrand = document.getElementById('numPasswordsRandomPin');
+    inputnumpinrand.addEventListener('inputFormRandomPin', function() {
         if (this.value && !isNaN(this.value)) {
             this.value = Math.max(1, Math.min(99, parseInt(this.value)));
         }
@@ -238,6 +303,28 @@ function toggleSectionRandom(sectionId, iconId) {
         //const otherSection = document.getElementById(otherSectionId);
         //f (otherSection.style.display === "none") {
             optionalRandom.style.display = "none"; // Hide optional section if both are hidden
+        //}
+    }
+}
+
+function toggleSectionRandomPin(sectionId, iconId) {
+    const section = document.getElementById(sectionId);
+    const icon = document.getElementById(iconId);
+    const optionalRandomPin = document.getElementById('optionalRandomPin');
+    
+    if (section.style.display === "none") {
+        section.style.display = "block";
+        icon.style.color = "#0d6efd"; // Bootstrap primary color
+        optionalRandomPin.style.display = "block"; // Show optional section
+    } else {
+        section.style.display = "none";
+        icon.style.color = ""; // Reset color
+        
+        // Check if both sections are now hidden
+        //const otherSectionId = sectionId === 'settingsSectionRandom' ? 'settingsSectionRandom' : 'settingsSectionRandom';
+        //const otherSection = document.getElementById(otherSectionId);
+        //f (otherSection.style.display === "none") {
+            optionalRandomPin.style.display = "none"; // Hide optional section if both are hidden
         //}
     }
 }
@@ -590,6 +677,161 @@ function checkPassword(password) {
                 compromised: match !== undefined
             };
         });
+}
+
+function generateRandomPin() {
+    const forbiddenPins = new Set([
+        "1234", "0000", "7777", "2000", "2222", "9999", "5555", 
+        "1112", "8888", "2001", "1111", "1212", "1004", "4444", 
+        "6969", "3333", "6666", "1313", "4321", "1010"
+    ]);
+    const lengthPin = parseInt(document.getElementById('numNumbers').value); // Get desired password length
+
+    // Hide optional section
+    document.getElementById('optionalRandomPin').style.display = 'none';
+
+    // Hide settings and mywords sections
+    document.getElementById('settingsSectionRandomPin').style.display = 'none';
+
+    // Reset the toggle icons' color
+    document.getElementById('toggleSettingsRandomPin').style.color = '';
+
+    const numPinsRandom = parseInt(document.getElementById('numPasswordsRandomPin').value);
+    const outputrandompin = [];
+
+    for (let i = 0; i < numPinsRandom; i++) 
+    {
+        let pin;
+        let isValid = false;
+    
+
+        while (!isValid) {
+            // Generate a random 4-digit PIN
+            //pin = String(Math.floor(Math.random() * 10000)).padStart(lengthPin, '0');
+            pin = String(Math.floor(Math.random() * Math.pow(10, lengthPin))).padStart(lengthPin, '0');
+
+            if (lengthPin === 4)
+            {
+                // Check the rules
+                const firstTwoDigits = pin.slice(0, 2);
+                const lastTwoDigits = pin.slice(2, 4);
+                const samePairs = firstTwoDigits === lastTwoDigits;
+
+                // Validate the PIN against the rules
+                if (
+                    !forbiddenPins.has(pin) && // Not in the forbidden list
+                    !samePairs && // No same pairs of digits
+                    !["20", "19"].includes(firstTwoDigits) && // Not starting with 20 or 19
+                    !isDateLike(pin) // Not date-like
+                ) {
+                    isValid = true; // If all checks pass, the PIN is valid
+                }
+            }
+            else if (lengthPin === 6)
+            {
+                // Check the rules
+                const firstTwoDigits = pin.slice(0, 2);
+                const midTwoDigits = pin.slice(2, 4);
+                const lastTwoDigits = pin.slice(4, 6);
+                const samePairs = firstTwoDigits === lastTwoDigits === midTwoDigits;
+
+                // Validate the PIN against the rules
+                if (
+                    !samePairs && // No same pairs of digits
+                    !isDateYearShortLike(pin) // Not date-like
+                ) {
+                    isValid = true; // If all checks pass, the PIN is valid
+                }
+            }
+            else if (lengthPin === 8)
+            {
+                // Check the rules
+                const firstTwoDigits = pin.slice(0, 2);
+                const midTwoDigits = pin.slice(2, 4);
+                const thirdTwoDigits = pin.slice(4, 6);
+                const lastTwoDigits = pin.slice(6, 8);
+                const samePairs = firstTwoDigits === lastTwoDigits === midTwoDigits === thirdTwoDigits;
+
+                // Validate the PIN against the rules
+                if (
+                    !samePairs && // No same pairs of digits
+                    !isDateYearLongLike(pin) // Not date-like
+                ) {
+                    isValid = true; // If all checks pass, the PIN is valid
+                }
+            }
+            else
+            {
+                isValid = true; // If all checks pass, the PIN is valid
+            }
+        }
+        outputrandompin.push(pin);
+    }
+    //Promise.all(outputrandompin).then(results => {
+    output = `
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>PIN Number</th>
+                </tr>
+            </thead>
+            <tbody>
+        `;
+        outputrandompin.forEach(pin => {
+            output += `
+                    <tr>
+                        <td>
+                            ${pin}
+                        </td>
+                    </tr>`;
+               
+                
+        });
+        output += `
+            </tbody>
+        </table>`;
+        document.getElementById('outputRandomPin').innerHTML = output;
+    // After generating passwords, you might want to scroll to the results
+    document.getElementById('outputRandomPin').scrollIntoView({behavior: 'smooth'});
+}
+
+// Helper function to check if the PIN is date-like
+function isDateLike(pin) {
+    const firstTwo = parseInt(pin.slice(0, 2), 10);
+    const lastTwo = parseInt(pin.slice(2, 4), 10);
+
+    // Check for invalid date ranges
+    return (
+        (firstTwo >= 1 && firstTwo <= 12 && lastTwo >= 1 && lastTwo <= 31) || // Month-Day combination
+        (firstTwo >= 1 && firstTwo <= 31 && lastTwo >= 1 && lastTwo <= 12) // Day-Month combination
+    );
+}
+
+function isDateYearShortLike(pin) {
+    const firstTwo = parseInt(pin.slice(0, 2), 10);
+    const midTwo = parseInt(pin.slice(2, 4), 10);
+    const lastTwo = parseInt(pin.slice(4, 6), 10);
+
+    // Check for invalid date ranges
+    return (
+        ((firstTwo >= 0 && firstTwo <= 99) && (midTwo >= 1 && midTwo <= 12) && (lastTwo >= 1 && lastTwo <= 31)) || // Year-Month-Day combination
+        ((firstTwo >= 1 && firstTwo <= 12) && (midTwo >= 1 && midTwo <= 31) && (lastTwo >= 0 && lastTwo <= 99)) || // Month-Day-Year combination
+        ((firstTwo >= 1 && firstTwo <= 31) && (midTwo >= 1 && midTwo <= 12) && (lastTwo >= 0 && lastTwo <= 99)) // Day-Month-Year combination
+    );
+}
+
+function isDateYearLongLike(pin) {
+    const firstTwo = parseInt(pin.slice(0, 2), 10);
+    const midTwo = parseInt(pin.slice(2, 4), 10);
+    const thirdTwo = parseInt(pin.slice(2, 6), 10);
+    const lastTwo = parseInt(pin.slice(4, 8), 10);
+
+    // Check for invalid date ranges
+    return (
+        ((firstTwo >= 19 && firstTwo <= 20) && (midTwo >= 0 && midTwo <= 99) && (thirdTwo >= 1 && thirdTwo <= 12) && (lastTwo >= 1 && lastTwo <= 31)) || // Year-Month-Day combination
+        ((firstTwo >= 1 && firstTwo <= 12) && (midTwo >= 1 && midTwo <= 31) && (thirdTwo >= 19 && thirdTwo <= 20) && (lastTwo >= 0 && lastTwo <= 99)) || // Month-Day-Year combination
+        ((firstTwo >= 1 && firstTwo <= 31) && (midTwo >= 1 && midTwo <= 12) && (thirdTwo >= 19 && thirdTwo <= 20) && (lastTwo >= 0 && lastTwo <= 99)) // Day-Month-Year combination
+    );
 }
 
 function checkComplexity(password) {

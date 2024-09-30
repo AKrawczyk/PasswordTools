@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Modifies the contents to match diffrent Browsers and Mobile devices -->
+<!-- Sets the style of the displayed content -->
+<!-- Includes any additional fonts needed for the display -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-dns-prefetch-control" content="off">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Password Tools</title>
+    <!-- Standard favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+    <!-- Android Chrome Icon -->
+    <link rel="icon" sizes="192x192" href="android-chrome-icon.png">
+
+    <!-- Other sizes for different devices -->
+    <link rel="icon" sizes="512x512" href="android-chrome-512x512.png">
+</head>
+
+<!-- Sets the main body of the contents and enables resize if browser or mobile device chenages display size. -->
+<body onresize="BrowserResize()">
+    
+    <!-- Menu for website -->
+    <div class="main-nav" id="main-nav">
+        <!-- Included Java script needed to process the display of the menu -->
+        <script src="displaymenu.js"></script>
+        <script>
+            // Call the renderMenu function to populate the menu
+            renderMenu('main-nav');
+        </script>
+    </div>
+
+    <!-- This is where the main content is displayed -->
+    <div class="main">
+        <div class="container">
+            <h1>PIN Heat Chart</h1>
+            <div class="password-guidelines">
+                <h4>4 Digit PIN numbers</h4>
+                <ul>
+                    <li><i class="bi bi-circle-fill"></i>PIN Numbers recovered from 3.4 million breaches.</li>
+                    <li><i class="bi bi-circle-fill"></i>Light Colours indicate most common Pin numbers.</li>
+                    <li><i class="bi bi-circle-fill"></i>Dark Colours indicate least common Pin numbers.</li>
+                    <li><i class="bi bi-circle-fill"></i>20 most common Pin numbers comprise 27% all Pins.</li>
+                </ul>
+                </br>
+                <h4>Patterns</h4>
+                <ul>
+                    <li><i class="bi bi-circle-fill"></i>Bottom left corner are Pin numbers made up of 01-31 and 01-12 (UK birthday).</li>
+                    <li><i class="bi bi-circle-fill"></i>Bottom left corner are Pin numbers made up of 01-12 and 01-31 (US birthday).</li>
+                    <li><i class="bi bi-circle-fill"></i>Diagnoal bottom to top are Pin numbers made up of same pairs 00 00-99 99.</li>
+                    <li><i class="bi bi-circle-fill"></i>Accross the chart from left to right are Pin numbers made up of  19 or 20 and 00-99 (birth year).</li>
+                </ul>
+                <div class="image-container">
+                    <img src="Pin-Numbers-PosterA1.png" alt="Description of Image" class="responsive-image">
+                </div>
+            </br>
+            <h4>Created by</h4>
+            <ul>
+                <li><i class="bi bi-circle-fill"></i>Chart created by <a href="http://datagenetics.com" target="_blank" rel="noopener noreferrer">datagenetics.com</a> and <a href="http://informationisbeautiful.net" target="_blank" rel="noopener noreferrer">informationisbeautiful.net</a></li>
+            </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Included Java script needed to process the menu systems -->
+    <script src="menu.js"></script>
+</body>
+</html>

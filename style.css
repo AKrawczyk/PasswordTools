@@ -15,11 +15,13 @@
    margin: 0 auto;
 }
 table {
+  z-index: 1;
    font-family: arial, sans-serif;
    border-collapse: collapse;
 }
 
 td, th {
+  z-index: 1;
    border: 1px solid #dddddd;
    text-align: left;
    vertical-align: top;
@@ -59,7 +61,8 @@ tr:nth-child(even) {
 /* Main nav menu content */
 .main-nav { 
   display: flex;
-  position: absolute;
+  position: fixed;
+  z-index: 1000;
   top: 0;
   height: 60px;
   width: 100%;
@@ -851,18 +854,18 @@ textarea,
   font-size: 1.2em;
 }
 
-#optional, #optionalRandom {
+#optional, #optionalRandom, #optionalRandomPin {
   margin-top: 20px;
 }
 
-#settingsSection, #myWordsSection, #settingsSectionRandom {
+#settingsSection, #myWordsSection, #settingsSectionRandom, #settingsSectionRandomPin {
   background-color: #f8f9fa;
   padding: 15px;
   border-radius: 5px;
   margin-bottom: 15px;
 }
 
-#settingsSection h4, #myWordsSection h4, #settingsSectionRandom h4 {
+#settingsSection h4, #myWordsSection h4, #settingsSectionRandom h4, #settingsSectionRandomPin h4 {
   margin-top: 0;
 }
 
@@ -879,7 +882,7 @@ textarea,
   background-color: #0b5ed7;
 }
 
-#settingsSection, #myWordsSection, #settingsSectionRandom {
+#settingsSection, #myWordsSection, #settingsSectionRandom, #settingsSectionRandomPin {
   transition: all 0.3s ease-in-out;
 }
 
@@ -914,4 +917,14 @@ textarea,
   margin-bottom: 10px; /* Space between list items */
 }
 
-#output, #combinations, #optional, #outputPwdTest, #outputRandom, #optionalRandom { margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px; }
+.image-container {
+  text-align: center; /* Center the image */
+  margin: 20px 0; /* Add some margin around the image */
+}
+
+.responsive-image {
+  max-width: 100%; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio */
+}
+
+#output, #combinations, #optional, #outputPwdTest, #outputRandom, #optionalRandom, #outputRandomPin, #optionalRandomPin { margin-top: 20px; padding: 10px; background-color: #f0f0f0; border-radius: 5px; }
