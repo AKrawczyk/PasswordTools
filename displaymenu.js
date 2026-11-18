@@ -17,7 +17,8 @@ function generateMenu()
                         <li><a href="rpg.html">Random Password Generator</a></li>
                         <li><a href="pwdtester.html">Password Tester</a></li>
                         <li><a href="pg.html">PIN Generator</a></li>
-                        <li><a href="https://neal.fun/password-game/" target="_blank" rel="noopener noreferrer"">Password Game</a></li>
+                        <li><a href="/PassGame/passwordGame.html">Password Mastery Game</a></li>
+                        <li><a href="https://neal.fun/password-game/" target="_blank" rel="noopener noreferrer"">Fun Password Game</a></li>
                     </ul>
                 </li>
 
